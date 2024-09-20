@@ -1,0 +1,16 @@
+.sliceViewer {
+    width: 410px;
+    height: 410px;
+    align-items: center;
+}
+
+.sliceView {
+    background-color: #555555;
+    width: 400px;
+    height: 400px;
+}
+
+.slider {
+    width: 100%;
+    height: 10px;
+}

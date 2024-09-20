@@ -1,0 +1,4 @@
+.plain-text {
+    -unity-font-definition: resource('Fonts/NunitoSans/NunitoSans_7pt-SemiBold');
+    color: var(--white-color);
+}

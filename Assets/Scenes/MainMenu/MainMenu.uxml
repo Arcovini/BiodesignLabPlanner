@@ -1,0 +1,38 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UIToolkit/USS/Light/LightTheme.uss?fileID=7433441132597879392&amp;guid=c64448a6e116bb940bdb2d0018e3f5b1&amp;type=3#LightTheme" />
+    <Style src="project://database/Assets/UIToolkit/USS/Light/LightImage.uss?fileID=7433441132597879392&amp;guid=767a391a365ac0247b26b5273b0a1013&amp;type=3#LightImage" />
+    <Style src="project://database/Assets/UIToolkit/USS/Light/LightButtons.uss?fileID=7433441132597879392&amp;guid=ea16c3c0d56f89b42bfdb14439e7d7da&amp;type=3#LightButtons" />
+    <engine:VisualElement name="Container" style="flex-grow: 1;">
+        <engine:VisualElement name="Header" class="header" style="flex-grow: 1;" />
+        <engine:VisualElement name="Background" class="body" style="flex-grow: 1; flex-direction: row;">
+            <engine:VisualElement name="Container" style="flex-grow: 1; width: 60%;">
+                <engine:VisualElement name="Menu" style="flex-grow: 1; align-self: center; justify-content: center;">
+                    <engine:Button text="NEW PLAN" name="NewPlanButton" class="menu-button">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:9d17c1f1c40030d4ca3cfe582077eec4" entry="Id(41381724119040)" />
+                        </Bindings>
+                    </engine:Button>
+                    <engine:Button text="Button" name="LoadPlanButton" class="menu-button">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:9d17c1f1c40030d4ca3cfe582077eec4" entry="Id(41387688419328)" />
+                        </Bindings>
+                    </engine:Button>
+                    <engine:Button text="Button" name="SettingsButton" class="menu-button">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:9d17c1f1c40030d4ca3cfe582077eec4" entry="Id(41390171447296)" />
+                        </Bindings>
+                    </engine:Button>
+                    <engine:Button text="Button" name="QuitButton" class="menu-button">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:9d17c1f1c40030d4ca3cfe582077eec4" entry="Id(41588511694848)" />
+                        </Bindings>
+                    </engine:Button>
+                </engine:VisualElement>
+            </engine:VisualElement>
+            <engine:VisualElement name="Container" style="flex-grow: 1; width: 40%;">
+                <engine:VisualElement name="Logo" class="logo" style="flex-grow: 1; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; scale: 0.75 0.75;" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="Footer" class="footer" style="flex-grow: 1;" />
+    </engine:VisualElement>
+</engine:UXML>

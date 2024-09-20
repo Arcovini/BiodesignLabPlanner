@@ -1,0 +1,4 @@
+.plain-text {
+    -unity-font-definition: var(--text-font);
+    color: var(--space-cadet-color);
+}

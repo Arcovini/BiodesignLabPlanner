@@ -1,0 +1,48 @@
+.menu-button {
+    -unity-font-definition: var(--text-font);
+    color: var(--space-cadet-color);
+    background-color: rgba(0, 0, 0, 0);
+    font-size: 30px;
+    border-width: 0;
+}
+
+.menu-button:hover {
+    color: var(--tomato-color);
+    scale: 1.15 1.15;
+}
+
+.iterator-button {
+    -unity-font-definition: var(--text-font);
+    color: var(--white-color);
+    background-color: var(--blue-de-france-color);
+    width: 90px;
+    height: 35px;
+    border-color: rgb(125, 125, 125);
+    border-radius: 10px;
+}
+
+.iterator-button:hover {
+    background-color: var(--picton-blue-color);
+}
+
+.load-button {
+    background-color: var(--blue-de-france-color);
+    align-items: center;
+    justify-content: center;
+    border-color: rgb(125, 125, 125);
+    border-width: 3px;
+    width: 250px;
+    height: 100px;
+    border-radius: 20px;
+}
+
+.load-button:hover {
+    background-color: var(--picton-blue-color);
+}
+
+.folder-icon {
+    background-image: resource('Icons/FolderIconLight');
+    position: Absolute;
+    width: 70px;
+    height: 70px;
+}

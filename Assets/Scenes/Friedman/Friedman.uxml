@@ -1,0 +1,37 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UIToolkit/USS/Light/LightTheme.uss?fileID=7433441132597879392&amp;guid=c64448a6e116bb940bdb2d0018e3f5b1&amp;type=3#LightTheme" />
+    <Style src="project://database/Assets/UIToolkit/USS/Light/LightButtons.uss?fileID=7433441132597879392&amp;guid=ea16c3c0d56f89b42bfdb14439e7d7da&amp;type=3#LightButtons" />
+    <Style src="project://database/Assets/UIToolkit/USS/Light/LightText.uss?fileID=7433441132597879392&amp;guid=514f43985d265a14a8f4b74e627155ae&amp;type=3#LightText" />
+    <engine:VisualElement name="Container" style="flex-grow: 1;">
+        <engine:VisualElement name="Header" class="header" style="flex-grow: 1;" />
+        <engine:VisualElement name="Background" class="body" style="flex-grow: 1; flex-direction: row;">
+            <engine:VisualElement name="Container" style="flex-grow: 1;">
+                <engine:VisualElement name="Container" style="flex-grow: 1; flex-direction: row; width: 100%; height: 90%;">
+                    <engine:VisualElement name="Container" style="width: 50%; align-items: center; justify-content: flex-start; align-self: auto; align-content: flex-start;">
+                        <engine:Button name="LoadButton" class="load-button" style="position: relative; margin-bottom: 30px; margin-top: 60px;">
+                            <engine:VisualElement name="Icon" class="folder-icon" style="flex-grow: 1;" />
+                        </engine:Button>
+                        <engine:Label text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ultricies ante id lorem interdum, sit amet bibendum mauris accumsan. Suspendisse consectetur mi at blandit convallis. Nunc vitae posuere eros. Sed ut feugiat ligula, vitae eleifend velit. Duis bibendum interdum lectus eget rhoncus. Donec scelerisque placerat ante, at volutpat erat ultrices in. Mauris tincidunt, massa eget sollicitudin consectetur, metus metus pellentesque. " name="Text" enable-rich-text="false" class="plain-text" style="font-size: 18px; white-space: normal; -unity-text-align: upper-left; padding-right: 170px; padding-left: 170px; margin-right: 4px; margin-bottom: 40px; margin-left: 4px;" />
+                        <engine:VisualElement name="ExampleImage" style="flex-grow: 1; width: 256px; height: 256px; position: absolute; background-image: resource(&apos;Textures/ExampleImage&apos;); top: 55%;" />
+                    </engine:VisualElement>
+                    <engine:VisualElement name="Container" style="flex-grow: 1; width: 50%; align-items: center; align-self: center;">
+                        <BiodesignLab.CustomVisualElements.SliceViewer />
+                    </engine:VisualElement>
+                </engine:VisualElement>
+                <engine:VisualElement name="Container" style="flex-grow: 1; width: 100%; height: 5%; flex-direction: row; align-self: auto; justify-content: center; align-items: center; align-content: flex-start; flex-wrap: nowrap;">
+                    <engine:Button text="Button" name="BackButton" class="iterator-button" style="margin-right: 10px; margin-left: 10px;">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:9d17c1f1c40030d4ca3cfe582077eec4" entry="Id(41833157058560)" />
+                        </Bindings>
+                    </engine:Button>
+                    <engine:Button text="Button" name="NextButton" class="iterator-button" style="margin-right: 10px; margin-left: 10px;">
+                        <Bindings>
+                            <UnityEngine.Localization.LocalizedString property="text" table="GUID:9d17c1f1c40030d4ca3cfe582077eec4" entry="Id(41790945583104)" />
+                        </Bindings>
+                    </engine:Button>
+                </engine:VisualElement>
+            </engine:VisualElement>
+        </engine:VisualElement>
+        <engine:VisualElement name="Footer" class="footer" style="flex-grow: 1;" />
+    </engine:VisualElement>
+</engine:UXML>
