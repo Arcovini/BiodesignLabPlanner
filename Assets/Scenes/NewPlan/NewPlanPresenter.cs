@@ -6,7 +6,7 @@ using System;
 
 namespace BiodesignLab
 {
-    public class FriedmanPresenter : MonoBehaviour
+    public class NewPlanPresenter : MonoBehaviour
     {
         // Model
         private Dicom dicom;
@@ -15,13 +15,12 @@ namespace BiodesignLab
         
         // View
         private VisualElement root;
-        private FriedmanView view;
+        private NewPlanView view;
 
         private void Start()
         {
-            // TOOD: change to fetch CurrentActiveDocument from SequenceManager
-            this.root = GameObject.Find("UIDocument").GetComponent<UIDocument>().rootVisualElement;
-            this.view = new FriedmanView(root);
+            this.root = GetComponent<UIDocument>().rootVisualElement;
+            this.view = new NewPlanView(root);
         }
 
         private void OnEnable()
