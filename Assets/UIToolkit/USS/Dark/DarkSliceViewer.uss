@@ -1,13 +1,13 @@
 .sliceViewer {
     width: 410px;
-    height: 410px;
+    height: 40%;
     align-items: center;
 }
 
 .sliceView {
     background-color: #AAAAAA;
-    width: 400px;
-    height: 400px;
+    width: auto;
+    height: 40%;
 }
 
 .slider {

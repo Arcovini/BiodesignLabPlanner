@@ -1,4 +1,28 @@
 .plain-text {
     -unity-font-definition: resource('Fonts/NunitoSans/NunitoSans_7pt-SemiBold');
+    color: rgb(241, 241, 241);
+    height: auto; /* Allow the height to grow based on the text content */
+    white-space: normal; /* Allow text to wrap */
+}
+.title{
+    -unity-font-definition: resource('Fonts/NunitoSans/NunitoSans_7pt-Bold');
     color: var(--white-color);
+    font-size: 24px;
+    font-weight: Bold;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    flex-direction: column;
+    height: auto; /* Allow the height to grow based on the text content */
+    white-space: normal; /* Allow text to wrap */
+}
+.subtitle {
+    -unity-font-definition: resource('Fonts/NunitoSans/NunitoSans_7pt-Medium');
+    color: var(--white-color);
+    font-size: 18px;
+    font-weight: Medium;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    flex-direction: column;
+    height: auto; /* Allow the height to grow based on the text content */
+    white-space: normal; /* Allow text to wrap */
 }
