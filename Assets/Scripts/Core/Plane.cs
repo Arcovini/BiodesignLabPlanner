@@ -22,23 +22,43 @@ namespace BiodesignLab
             set { this.position = value; }
         }
 
-        public Quaternion Rotation
+        public Vector3 Normal
         {
-            get { return this.rotation; }
-            set { this.rotation = value; }
+            get { return this.normal; }
+            set { this.normal = value; }
+        }
+
+        public Matrix4x4 LocalToWorldMatrix
+        {
+            get 
+            { 
+                Matrix4x4 translation = Matrix4x4.Translate(Position);
+                Matrix4x4 rotation = Matrix4x4.Rotate(Quaternion.LookRotation(Normal));
+                Matrix4x4 scaling = Matrix4x4.Scale(new Vector3(Width, Height, 1.0f));
+
+                return translation * rotation * scaling;
+            }
+
+            private set {}
+        }
+
+        public Matrix4x4 WorldToLocalMatrix
+        {
+            get { return Matrix4x4.Inverse(LocalToWorldMatrix); }
+            private set {}
         }
 
         private float width;
         private float height;
         private Vector3 position;
-        private Quaternion rotation;
+        private Vector3 normal;
 
-        public Plane(float width = 1.0f, float height = 1.0f, Vector3 position = new Vector3(), Vector3 rotation = new Vector3())
+        public Plane(float width, float height, Vector3 position, Vector3 normal)
         {
             this.width = width;
             this.height = height;
             this.position = position;
-            this.rotation = Quaternion.Euler(rotation);
+            this.normal = normal;
         }
-    }   
+    }
 }

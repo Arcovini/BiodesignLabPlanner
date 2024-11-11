@@ -18,7 +18,7 @@ namespace BiodesignLab
         [ReadOnly] public float PhysicalLength;
 
         public Transform Transform => transform;
-        public Vector3 Position  => transform.position;
+        public Vector3 Position => transform.position;
         
         public Collider Collider => GetComponent<Collider>();
         public Vector3 BoundsMin => GetComponent<Collider>().bounds.min;

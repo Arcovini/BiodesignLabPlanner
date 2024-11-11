@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 993052718183624094}
   - component: {fileID: 8732386317039117109}
   - component: {fileID: 3417193173989812664}
+  - component: {fileID: 3166058898665755442}
   m_Layer: 0
   m_Name: Dicom
   m_TagString: Untagged
@@ -122,6 +123,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9af3279fff2acb4c83846eb8a6ebe31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PatientName: 
+  PatientID: 
+  PatientSex: 
+  SliceThickness: 0
+  ImagePositionPatient: []
+  ImageOrientationPatient: []
+  PixelSpacing: []
+  WindowWidth: 0
+  WindowCenter: 0
+  RescaleSlope: 0
+  RescaleIntercept: 0
 --- !u!114 &3417193173989812664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,3 +153,15 @@ MonoBehaviour:
   PhysicalWidth: 0
   PhysicalHeight: 0
   PhysicalLength: 0
+--- !u!114 &3166058898665755442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5960555928817308746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19d271d0f8a5d6b46b04ef176aa5a42f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

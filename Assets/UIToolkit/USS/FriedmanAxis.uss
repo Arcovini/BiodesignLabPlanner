@@ -1,0 +1,38 @@
+:root {
+    --trigonum-color: rgb(0, 255, 0);
+    --glenoid-color: rgb(255, 128, 25);
+    --outline-color: rgb(255, 0, 255);
+    --radius: 3.0;
+    --outline-thickness: 1.0;
+}
+
+.friedman-axis {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.point {
+    width: var(--radius);
+    height: var(--radius);
+}
+
+.point:hover {
+    /* increase size */
+    
+}
+
+.trigonum-point {
+    position: absolute;
+    left: 25%;
+    top: 50%;
+}
+
+.glenoid-point {
+    position: absolute;
+    left: 75%;
+    top: 50%;
+}

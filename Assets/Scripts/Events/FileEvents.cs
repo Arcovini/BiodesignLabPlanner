@@ -7,5 +7,8 @@ namespace BiodesignLab
     {
         public static Action OpenFileExplorer;
         public static Action OpenFolderExplorer;
+
+        public static Action<Dicom> DicomLoaded;
+        public static Action DicomUnloaded;
     }
 }

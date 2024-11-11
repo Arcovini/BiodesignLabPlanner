@@ -10,16 +10,13 @@ namespace BiodesignLab
     {
         // Model
         private Dicom dicom;
-        private Slice axialSlice;
-        private Slice coronalSlice;
         
         // View
-        private VisualElement root;
         private NewPlanView view;
 
         private void Start()
         {
-            this.root = GetComponent<UIDocument>().rootVisualElement;
+            var root = GetComponent<UIDocument>().rootVisualElement;
             this.view = new NewPlanView(root);
         }
 
@@ -50,17 +47,14 @@ namespace BiodesignLab
         {
             if(this.dicom is not null)
             {
-                Destroy(this.axialSlice);
-                Destroy(this.coronalSlice);
-                Destroy(this.dicom);
+                Destroy(this.dicom.gameObject);
+                FileEvents.DicomUnloaded?.Invoke();
             }
 
-            var dicomObj = Instantiate(Resources.Load<GameObject>("Prefabs/Dicom"));
-            this.dicom = dicomObj.GetComponent<Dicom>();
+            this.dicom = Instantiate(Resources.Load<GameObject>("Prefabs/Dicom")).GetComponent<Dicom>();
             this.dicom.Init(files);
 
-            var sliceObj = Instantiate(Resources.Load<GameObject>("Prefabs/Slice"));
-            this.axialSlice = sliceObj.GetComponent<Slice>();
+            FileEvents.DicomLoaded?.Invoke(this.dicom);
         }
     }
 }

@@ -1,10 +1,11 @@
 .plain-text {
     -unity-font-definition: resource('Fonts/NunitoSans/NunitoSans_7pt-SemiBold');
     color: rgb(241, 241, 241);
-    height: auto; /* Allow the height to grow based on the text content */
-    white-space: normal; /* Allow text to wrap */
+    height: auto;
+    white-space: normal;
 }
-.title{
+
+.title {
     -unity-font-definition: resource('Fonts/NunitoSans/NunitoSans_7pt-Bold');
     color: var(--white-color);
     font-size: 24px;
@@ -15,6 +16,7 @@
     height: auto; /* Allow the height to grow based on the text content */
     white-space: normal; /* Allow text to wrap */
 }
+
 .subtitle {
     -unity-font-definition: resource('Fonts/NunitoSans/NunitoSans_7pt-Medium');
     color: var(--white-color);

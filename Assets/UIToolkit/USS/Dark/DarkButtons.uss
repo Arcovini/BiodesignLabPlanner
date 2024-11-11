@@ -58,11 +58,14 @@
     background-color: var(--blue-web-color);
     align-items: center;
     justify-content: center;
-    width: auto;
-    height: 80px;
-    border-radius: 40px;
+    flex-grow: 0;
+    width: 150px;
+    height: 50px;
+    border-radius: 25px;
     margin-bottom: 20px;
     margin-top: 20px;
+    margin-right: 10px;
+    margin-left: 10px;
     flex-grow: 1;
     flex-shrink: 1;
 }
@@ -71,9 +74,12 @@
     background-color: rgba(0, 0, 0, 0);
     align-items: center;
     justify-content: center;
-    width: auto;
-    height: 80px;
-    border-radius: 40px;
+    flex-grow: 0;
+    width: 150px;
+    height: 50px;
+    border-radius: 25px;
+    margin-right: 10px;
+    margin-left: 10px;
     margin-bottom: 20px;
     margin-top: 20px;
     flex-grow: 1;
