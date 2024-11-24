@@ -39,7 +39,7 @@ namespace BiodesignLab
 
             DicomFile[] files = FileLoader.OpenDicomFolder(path);
             
-            if(files is not null)
+            if(files.Length > 0)
                 LoadDicom(files);
         }
 

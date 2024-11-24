@@ -7,78 +7,116 @@ namespace BiodesignLab
 {
     public class NewPlanView : IDisposable
     {
-        // private Button loadButton;
-        // private Button continueButton;
-        // private Button confirmButton;
+        private VisualElement root;
 
-        // private Button back1Button;
-        // private Button back2Button;
+        private Button loadButton;
+        private Button backButton;
+        private Button nextButton;
 
-        // private VisualElement loaderContainer;
-        // private VisualElement friedmanContainer;
-        // private VisualElement coronalContainer;
-
-        // private VisualElement variableSliceViewer;
-
-        private NewPlanLoader loader;
+        private SliceViewer axialSliceViewer;
+        private SliceViewer coronalSliceViewer;
+        
+        private DicomVolume volume;
         
         public NewPlanView(VisualElement root)
         {
-            var loaderRoot = root.Q<VisualElement>("Loader");
-            this.loader = new NewPlanLoader(loaderRoot);
+            this.root = root;
 
-            // this.loadButton = root.Q<Button>("LoadButton");
-            // this.back1Button = root.Q<Button>("BackButton");
-            // this.back2Button = root.Q<Button>("Back2Button");
-            // this.continueButton = root.Q<Button>("ContinueButton");
-            // this.confirmButton = root.Q<Button>("ConfirmAxisButton");
-            
-            // this .loaderContainer = root.Q<VisualElement>("LoaderContainer");
-            // this .friedmanContainer = root.Q<VisualElement>("FriedmanContainer");
-            // this .coronalContainer = root.Q<VisualElement>("CoronalContainer");
-            // this .variableSliceViewer = root.Q<VisualElement>("VariableSliceViewer");
-
-
-            // this.loaderContainer.style.display = DisplayStyle.Flex;
-            // this.friedmanContainer.style.display = DisplayStyle.None;
-            // this.coronalContainer.style.display = DisplayStyle.None;
-            // this.variableSliceViewer.style.display = DisplayStyle.None;
-
-
-            // this.loadButton.RegisterCallback<ClickEvent>(OnLoadButtonPressed);
-            // this.continueButton.RegisterCallback<ClickEvent>(OnContinueButtonPressed);
-            // this.confirmButton.RegisterCallback<ClickEvent>(OnConfirmAxisButtonPressed);
-
-            // this.back1Button.RegisterCallback<ClickEvent>(OnBackButtonPressed);
-        }
+            SetVisualElements();
+            RegisterCallbacks();
+        }   
         
+        private void SetVisualElements()
+        {
+            this.loadButton = this.root.Q<Button>("LoadButton");
+            this.backButton = this.root.Q<Button>("BackButton");
+            this.nextButton = this.root.Q<Button>("NextButton");
+
+            this.axialSliceViewer = this.root.Q<SliceViewer>("AxialSliceViewer");
+            this.coronalSliceViewer = this.root.Q<SliceViewer>("CoronalSliceViewer");
+        }
+
+        private void RegisterCallbacks()
+        {
+            this.loadButton.clicked += OpenFileExplorer;
+            this.backButton.clicked += UnloadScene;
+
+            FileEvents.DicomLoaded += OnDicomLoaded;
+            FileEvents.DicomUnloaded += OnDicomUnloaded;
+        }
+
         public void Dispose()
         {
-            // this.loadButton.UnregisterCallback<ClickEvent>(OnLoadButtonPressed);
-            // this.continueButton.UnregisterCallback<ClickEvent>(OnContinueButtonPressed);
-            // this.confirmButton.UnregisterCallback<ClickEvent>(OnConfirmAxisButtonPressed);
-            // this.back1Button.UnregisterCallback<ClickEvent>(OnBackButtonPressed);
+            this.loadButton.clicked -= OpenFileExplorer;
+
+            FileEvents.DicomLoaded -= OnDicomLoaded;
+            FileEvents.DicomUnloaded -= OnDicomUnloaded;
         }
 
-        // private void OnLoadButtonPressed(ClickEvent e)
-        // {
-        //     // FileEvents.OpenFolderExplorer?.Invoke();
-        //     this.loaderContainer.style.display = DisplayStyle.None;
-        //     this.coronalContainer.style.display = DisplayStyle.None;
-        //     this.friedmanContainer.style.display = DisplayStyle.Flex;
-        // }
+        private void OpenFileExplorer()
+        {
+            FileEvents.OpenFolderExplorer?.Invoke();
+        }
 
+        private void UnloadScene()
+        {
+            SceneEvents.UnloadScene?.Invoke();
+        }
 
-        // private void OnContinueButtonPressed(ClickEvent e) { 
-        //     this.loaderContainer.style.display = DisplayStyle.None;
-        //     this.coronalContainer.style.display = DisplayStyle.Flex;
-        //     this.variableSliceViewer.style.display = DisplayStyle.Flex;
+        private void LoadScene()
+        {
+            SceneEvents.LoadScene?.Invoke(Scene.Planner);
+        }
 
-        //     this.friedmanContainer.style.display = DisplayStyle.None;
-        // }
+        private void UnloadSegment()
+        {
+            var loader = this.root.Q<VisualElement>("Loader");
+            var adjustment = this.root.Q<VisualElement>("Adjustment");
+            
+            this.coronalSliceViewer.Reset();
+            
+            loader.style.display = DisplayStyle.Flex;
+            adjustment.style.display = DisplayStyle.None;
 
-        // private void OnConfirmAxisButtonPressed(ClickEvent e) { 
+            this.backButton.clicked -= UnloadSegment;
+            this.backButton.clicked += UnloadScene;
 
-        // }
+            this.nextButton.clicked -= LoadScene;
+            this.nextButton.clicked += UnloadScene;
+        }
+
+        private void LoadSegment()
+        {
+            var loader = this.root.Q<VisualElement>("Loader");
+            var adjustment = this.root.Q<VisualElement>("Adjustment");
+
+            loader.style.display = DisplayStyle.None;
+            adjustment.style.display = DisplayStyle.Flex;
+            
+            // calculate friedman axis and load coronal view
+            var axialSlice = new SlicingPlane(this.volume, this.volume.PhysicalWidth, this.volume.PhysicalHeight, this.volume.Position, new Vector3(0.0f, -1.0f, 0.0f));
+            this.coronalSliceViewer.SetSlice(axialSlice);
+
+            this.backButton.clicked -= UnloadScene;
+            this.backButton.clicked += UnloadSegment;
+
+            this.nextButton.clicked -= LoadSegment;
+            this.nextButton.clicked += LoadScene;
+        }
+
+        private void OnDicomLoaded(Dicom dicom)
+        {
+            this.volume = dicom.Volume;
+
+            var axialSlice = new SlicingPlane(this.volume, this.volume.PhysicalWidth, this.volume.PhysicalHeight, this.volume.Position, new Vector3(0.0f, -1.0f, 0.0f));
+            this.axialSliceViewer.SetSlice(axialSlice);
+
+            this.nextButton.clicked += LoadSegment;
+        }
+
+        private void OnDicomUnloaded()
+        {
+            this.axialSliceViewer.Reset();
+        }
     }
 }

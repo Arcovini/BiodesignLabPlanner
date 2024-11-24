@@ -1,9 +1,10 @@
 :root {
-    --trigonum-color: rgb(0, 255, 0);
-    --glenoid-color: rgb(255, 128, 25);
-    --outline-color: rgb(255, 0, 255);
+    --trigonum-color: rgb(0, 0, 255);
+    --glenoid-color: rgb(255, 0, 0);
+    --outline-color: rgb(0, 255, 0);
+    --outline-thickness: 2.0;
     --radius: 3.0;
-    --outline-thickness: 1.0;
+    --size: 12.0;
 }
 
 .friedman-axis {
@@ -16,13 +17,12 @@
 }
 
 .point {
-    width: var(--radius);
-    height: var(--radius);
+    width: var(--size);
+    height: var(--size);
 }
 
 .point:hover {
-    /* increase size */
-    
+    /* TODO */
 }
 
 .trigonum-point {

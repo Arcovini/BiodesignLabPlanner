@@ -24,6 +24,13 @@ namespace BiodesignLab
             CreateRenderTexture();
         }
 
+        public SlicingPlane(DicomVolume volume, float width, float height, Vector3 position, Vector3 normal) : base(width, height, position, normal)
+        {
+            CreateRenderMaterial();
+            CreateRenderTexture();
+            SetVolume(volume);
+        }
+
         public void SetVolume(DicomVolume volume)
         {
             SetDistancePoints(volume);

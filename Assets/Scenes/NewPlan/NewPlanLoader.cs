@@ -8,25 +8,31 @@ namespace BiodesignLab
 {
     public class NewPlanLoader : IDisposable
     {
-        private Button loadButton;
-        private Button backButton;
-        private Button nextButton;
+        private VisualElement root;
 
+        private Button loadButton;
         private SliceViewer axialSliceViewer;
         private SliceViewer coronalSliceViewer;
 
         public NewPlanLoader(VisualElement root)
         {
-            this.loadButton = root.Q<Button>("LoadButton");
-            this.backButton = root.Q<Button>("BackButton");
-            this.nextButton = root.Q<Button>("NextButton");
-            this.axialSliceViewer = root.Q<SliceViewer>("AxialSliceViewer");
-            this.coronalSliceViewer = root.Q<SliceViewer>("CoronalSliceViewer");
+            this.root = root;
 
+            SetVisualElements();
+            RegisterCallbacks();
+        }
+
+        private void SetVisualElements()
+        {
+            this.loadButton = this.root.Q<Button>("LoadButton");
+            this.axialSliceViewer = this.root.Q<SliceViewer>("AxialSliceViewer");
+            this.coronalSliceViewer = this.root.Q<SliceViewer>("CoronalSliceViewer");
+        }
+
+        private void RegisterCallbacks()
+        {
             this.loadButton.RegisterCallback<ClickEvent>(OnLoadButtonPressed);
-            this.backButton.RegisterCallback<ClickEvent>(OnBackButtonPressed);
-            this.nextButton.RegisterCallback<ClickEvent>(OnNextButtonPressed);
-
+            
             FileEvents.DicomLoaded += OnDicomLoaded;
             FileEvents.DicomUnloaded += OnDicomUnloaded;
         }
@@ -34,26 +40,22 @@ namespace BiodesignLab
         public void Dispose()
         {
             this.loadButton.UnregisterCallback<ClickEvent>(OnLoadButtonPressed);
-            this.backButton.UnregisterCallback<ClickEvent>(OnBackButtonPressed);
-            this.nextButton.UnregisterCallback<ClickEvent>(OnNextButtonPressed);
 
             FileEvents.DicomLoaded -= OnDicomLoaded;
             FileEvents.DicomUnloaded -= OnDicomUnloaded;
         }
 
+        public void SetVisible(bool visible)
+        {
+            if(visible)
+                this.root.style.display = DisplayStyle.Flex;
+            else
+                this.root.style.display = DisplayStyle.None;
+        }
+
         private void OnLoadButtonPressed(ClickEvent e)
         {
             FileEvents.OpenFolderExplorer?.Invoke();
-        }
-
-        private void OnBackButtonPressed(ClickEvent e)
-        {
-            SceneEvents.UnloadScene?.Invoke();
-        }
-
-        private void OnNextButtonPressed(ClickEvent e)
-        {
-            throw new NotImplementedException();
         }
 
         private void OnDicomLoaded(Dicom dicom)
@@ -72,7 +74,8 @@ namespace BiodesignLab
 
         private void OnDicomUnloaded()
         {
-            // Slice viewer unset texture and delete link
+            this.axialSliceViewer.Reset();
+            this.coronalSliceViewer.Reset();
         }
     }
 }

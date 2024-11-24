@@ -29,6 +29,14 @@ namespace BiodesignLab.CustomVisualElements
             this.slice.style.backgroundImage = new StyleBackground(Background.FromRenderTexture(slicingPlane.Texture));
         }
 
+        public void Reset()
+        {
+            this.slider.value = 0.0f;
+            this.slice.style.backgroundImage = null;
+            this.slice.Clear();
+            this.slicingPlane.Dispose();
+        }
+
         private void SetVisualElements()
         {
             this.slice = new VisualElement();
