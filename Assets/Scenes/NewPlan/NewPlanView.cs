@@ -17,12 +17,16 @@ namespace BiodesignLab
         private SliceViewer coronalSliceViewer;
         
         private DicomVolume volume;
+        private VisualElement containerBackNext;
+        private Label instruction1;
+        private VisualElement instruction2;
         
         public NewPlanView(VisualElement root)
         {
             this.root = root;
 
             SetVisualElements();
+            this.containerBackNext.style.display = DisplayStyle.None; // Hide at start
             RegisterCallbacks();
         }   
         
@@ -31,9 +35,14 @@ namespace BiodesignLab
             this.loadButton = this.root.Q<Button>("LoadButton");
             this.backButton = this.root.Q<Button>("BackButton");
             this.nextButton = this.root.Q<Button>("NextButton");
-
             this.axialSliceViewer = this.root.Q<SliceViewer>("AxialSliceViewer");
             this.coronalSliceViewer = this.root.Q<SliceViewer>("CoronalSliceViewer");
+            this.containerBackNext = this.root.Q<VisualElement>("ContainerBackNext");
+            this.instruction1 = this.root.Q<Label>("Instruction1");
+            this.instruction2 = this.root.Q<VisualElement>("Instruction2");
+
+            this.containerBackNext.style.display = DisplayStyle.None;
+            this.instruction2.style.display = DisplayStyle.None;
         }
 
         private void RegisterCallbacks()
@@ -56,6 +65,8 @@ namespace BiodesignLab
         private void OpenFileExplorer()
         {
             FileEvents.OpenFolderExplorer?.Invoke();
+            this.loadButton.style.display = DisplayStyle.None;
+            this.containerBackNext.style.display = DisplayStyle.Flex;
         }
 
         private void UnloadScene()
@@ -112,6 +123,12 @@ namespace BiodesignLab
             this.axialSliceViewer.SetSlice(axialSlice);
 
             this.nextButton.clicked += LoadSegment;
+
+            this.instruction1.style.display = DisplayStyle.None; // Show after DICOM is loaded
+
+            this.containerBackNext.style.display = DisplayStyle.Flex; // Show after DICOM is loaded
+            this.instruction2.style.display = DisplayStyle.Flex; // Show after DICOM is loaded
+
         }
 
         private void OnDicomUnloaded()

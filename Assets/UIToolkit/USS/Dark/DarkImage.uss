@@ -6,4 +6,7 @@
     background-image: resource("Textures/LogoSmall");
     width: 150px;
     height: 120px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }

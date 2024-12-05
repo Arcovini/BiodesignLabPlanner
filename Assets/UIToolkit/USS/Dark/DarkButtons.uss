@@ -36,12 +36,18 @@
     margin-top: 20px;
     padding-left: 24px;
     padding-right: 24px;
+    padding-top: 12px;
+    padding-bottom: 12px;
     flex-grow: 0;
     flex-shrink: 1;
+    font-size: 20px; 
+    -unity-font-style: bold;
+    color: rgb(255, 255, 255); 
+    transition: background-color 0.2s ease;
 }
 
 .load-button:hover {
-    background-color: var(--white-color);
+    background-color: var(--blue-hover-color);
 }
 
 .folder-icon {
@@ -68,6 +74,11 @@
     margin-left: 10px;
     flex-grow: 1;
     flex-shrink: 1;
+    transition: background-color 0.2s ease;
+}
+
+.confirm-button:hover {
+    background-color: var(--blue-hover-color);
 }
 
 .return-button {
@@ -93,4 +104,9 @@
     border-top-color: rgb(0, 210, 211);
     border-bottom-color: rgb(0, 210, 211);
     -unity-background-image-tint-color: rgba(255, 255, 255, 0);
+    transition: background-color 0.2s ease;
+}
+
+.return-button:hover {
+    background-color: var(--dark-hover-color);
 }

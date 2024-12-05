@@ -11,6 +11,7 @@ namespace BiodesignLab
         private VisualElement root;
 
         private Button loadButton;
+        private VisualElement containerBackNext;
         private SliceViewer axialSliceViewer;
         private SliceViewer coronalSliceViewer;
 
@@ -25,8 +26,13 @@ namespace BiodesignLab
         private void SetVisualElements()
         {
             this.loadButton = this.root.Q<Button>("LoadButton");
+            this.containerBackNext = this.root.Q<VisualElement>("ContainerBackNext");
+
             this.axialSliceViewer = this.root.Q<SliceViewer>("AxialSliceViewer");
             this.coronalSliceViewer = this.root.Q<SliceViewer>("CoronalSliceViewer");
+
+            this.containerBackNext.style.display = DisplayStyle.None;
+            
         }
 
         private void RegisterCallbacks()
@@ -60,6 +66,7 @@ namespace BiodesignLab
 
         private void OnDicomLoaded(Dicom dicom)
         {
+
             DicomVolume volume = dicom.Volume;
 
             var axialSlice = new SlicingPlane(volume.PhysicalWidth, volume.PhysicalHeight, volume.Position, new Vector3(0.0f, -1.0f, 0.0f));

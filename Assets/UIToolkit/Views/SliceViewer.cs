@@ -72,7 +72,10 @@ namespace BiodesignLab.CustomVisualElements
         private void OnSliderValueChanged(ChangeEvent<float> e)
         {
             if(this.slicingPlane is not null)
+            {
+                Debug.Log($"Slider value changed: {e.newValue}");
                 this.slicingPlane.SetPosition(e.newValue);
+            }
         }
     }
 }

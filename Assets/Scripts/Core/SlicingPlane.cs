@@ -18,7 +18,7 @@ namespace BiodesignLab
         private Vector3 startPoint;
         private Vector3 endPoint;
 
-        public SlicingPlane(float width, float height, Vector3 position, Vector3 normal) : base(width, height, position, normal)
+        public  SlicingPlane(float width, float height, Vector3 position, Vector3 normal) : base(width, height, position, normal)
         {
             CreateRenderMaterial();
             CreateRenderTexture();
