@@ -6,6 +6,7 @@ namespace BiodesignLab
 {
     public class SlicingPlane : Plane, IDisposable
     {
+        public int TotalSlices { get; private set; }
         public CustomRenderTexture Texture
         {
             get { return this.customRenderTexture; }
@@ -26,18 +27,26 @@ namespace BiodesignLab
 
         public SlicingPlane(DicomVolume volume, float width, float height, Vector3 position, Vector3 normal) : base(width, height, position, normal)
         {
+            // Create the render material and texture
             CreateRenderMaterial();
             CreateRenderTexture();
+
+            // Set the volume and update the material parameters
             SetVolume(volume);
         }
 
         public void SetVolume(DicomVolume volume)
         {
+            // Set the start and end points for slicing within the volume
             SetDistancePoints(volume);
 
+            // Set shader parameters
             this.renderMaterial.SetTexture("_VolumeTex", volume.Texture);
             this.renderMaterial.SetMatrix("_LocalToWorld", LocalToWorldMatrix);
             this.renderMaterial.SetMatrix("_WorldToVolume", volume.Transform.worldToLocalMatrix);
+
+            // Store the total number of slices
+            TotalSlices = volume.VoxelLength;
 
             Update();
         }
@@ -83,7 +92,8 @@ namespace BiodesignLab
             float t = 0.0f;
             volume.Collider.bounds.IntersectRay(r, out t);
 
-            // This distance is the maximum travel distance we can go within the volume in that direction, starting from the center
+            // -old - This distance is the maximum travel distance we can go within the volume in that direction, starting from the center
+            // Calculate the start and end points for slicing
             float distance = Mathf.Abs(t);
 
             this.startPoint = r.origin - r.direction * distance;

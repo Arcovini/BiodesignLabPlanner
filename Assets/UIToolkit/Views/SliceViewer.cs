@@ -26,6 +26,7 @@ namespace BiodesignLab.CustomVisualElements
             this.slicingPlane.SetPosition(this.slider.value);
 
             this.slice.Add(new FriedmanAxis());
+            // Set the background of the slice element to the slicing plane's render texture
             this.slice.style.backgroundImage = new StyleBackground(Background.FromRenderTexture(slicingPlane.Texture));
         }
 
@@ -74,6 +75,13 @@ namespace BiodesignLab.CustomVisualElements
             if(this.slicingPlane is not null)
             {
                 Debug.Log($"Slider value changed: {e.newValue}");
+
+                // Calculate the current slice number
+                int totalSlices = this.slicingPlane.TotalSlices;
+                int currentSlice = Mathf.RoundToInt(e.newValue * (totalSlices - 1)) + 1;
+                
+                // Log the slice information
+                Debug.Log($"Slice {currentSlice} of {totalSlices}");
                 this.slicingPlane.SetPosition(e.newValue);
             }
         }

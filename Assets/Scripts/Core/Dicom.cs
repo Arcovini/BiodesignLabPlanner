@@ -38,9 +38,10 @@ namespace BiodesignLab
 
         public void Init(DicomFile[] files)
         {
+            // Store the DICOM files
             this.files = files;
 
-            // Preamble
+            // Extract metadata from the first file
             DicomFile file = files.First();
 
             PatientName = file.Dataset.GetSingleValue<string>(DicomTag.PatientName);
@@ -58,22 +59,25 @@ namespace BiodesignLab
             RescaleSlope = file.Dataset.GetSingleValue<float>(DicomTag.RescaleSlope);
             RescaleIntercept = file.Dataset.GetSingleValue<float>(DicomTag.RescaleIntercept);
 
+            // Load the volume data
             LoadVolume();
         }
 
         private void LoadVolume()
         {
-            // Pixel Data
+            // Get pixel data dimensions
             DicomPixelData pixelData = DicomPixelData.Create(this.files.First().Dataset);
             IPixelData dataInferface = PixelDataFactory.Create(pixelData, 0);
 
             var width = pixelData.Width;
             var height = pixelData.Height;
             var length = Files.Length;
-
+            
+            // Initialize the DicomVolume component
             this.volume = GetComponent<DicomVolume>();
             this.volume.Init(width, height, length);
 
+            // Load the grayscale pixel data into the 3D texture
             if(dataInferface is GrayscalePixelDataS16)
                 LoadGrayscalePixelData();
         }
@@ -84,20 +88,25 @@ namespace BiodesignLab
             int y = this.volume.VoxelHeight;
             int z = this.volume.VoxelLength;
 
+            // Create a 3D texture to store the volume data
             this.volume.Texture = new Texture3D(x, y, z, TextureFormat.RGB24, true);
             Color[] colors = new Color[x * y * z];
 
-            // // Window range
+             // Calculate window range for image intensity
             float minRange = WindowCenter - 0.5f * WindowWidth;
             float maxRange = WindowCenter + 0.5f * WindowWidth;
             
+            // Iterate over each DICOM file (slice)
             z = 0;
             foreach(DicomFile file in Files)
             {
+                // Extract pixel data
                 DicomPixelData pixelData = DicomPixelData.Create(file.Dataset);
                 IPixelData dataInferface = PixelDataFactory.Create(pixelData, 0);
 
                 Color[] pixelColor = new Color[x * y];
+
+                // Convert pixel data to grayscale colors
                 short[] data = (dataInferface as GrayscalePixelDataS16).Data;
 
                 for(int i = 0; i < data.Length; i++)
@@ -112,10 +121,12 @@ namespace BiodesignLab
                     pixelColor[i] = new Color(scale, scale, scale);
                 }
 
+                // Copy the slice's color data into the 3D texture array
                 Array.Copy(pixelColor, 0, colors, x * y * z, x * y);
                 z++;   
             }
-
+            
+            // Apply the color data to the 3D texture
             this.volume.Texture.SetPixels(colors);
             this.volume.Texture.Apply();
         }

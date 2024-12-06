@@ -119,6 +119,7 @@ namespace BiodesignLab
         {
             this.volume = dicom.Volume;
 
+            // Create a slicing plane for the axial view
             var axialSlice = new SlicingPlane(this.volume, this.volume.PhysicalWidth, this.volume.PhysicalHeight, this.volume.Position, new Vector3(0.0f, -1.0f, 0.0f));
             this.axialSliceViewer.SetSlice(axialSlice);
 
